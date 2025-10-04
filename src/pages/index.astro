@@ -1,0 +1,1041 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="STARWALKER - Spacial Cartography Explorer">
+    <style is:global>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --space-void: #000000;
+            --space-deep: #0a0a14;
+            --space-dark: #0f0f1e;
+            --nebula-purple: #8b5cf6;
+            --nebula-pink: #ec4899;
+            --nebula-blue: #3b82f6;
+            --star-cyan: #06b6d4;
+            --star-white: #ffffff;
+            --glow-cyan: rgba(6, 182, 212, 0.5);
+            --glow-purple: rgba(139, 92, 246, 0.5);
+            --text-dim: #bababa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, sans-serif;
+            background: var(--space-void);
+            color: var(--star-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at top, var(--space-dark), var(--space-void));
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 20, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--star-cyan);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--star-cyan), var(--nebula-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--star-cyan);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmJ3dnR4bm5nYTJja2dxdWZ4cXVzdW91NGNxcmJ6Mm9iZTg5OXgxMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gseZaTORnFo5NEk/giphy.gif') center/cover no-repeat;
+            opacity: 1;
+            z-index: -2;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(10, 10, 20, 0.8));
+            z-index: -1;
+        }
+
+        .hero-logo {
+            width: 80%;
+            max-width: 400px;
+            height: auto;
+            margin: 1rem auto 0.4rem;
+            filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.4));
+        }
+
+        @media (min-width: 768px) {
+            .hero-logo {
+                width: 30%;
+            }
+        }
+
+        .hero-subtitle {
+            margin: 1rem;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-dim);
+            max-width: 600px;
+            line-height: 1.6;
+            font-weight: 200;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--star-cyan), var(--nebula-blue));
+            color: white;
+            box-shadow: 0 10px 40px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(6, 182, 212, 0.5);
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .category {
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .category:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: -3rem;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(6, 182, 212, 0.5) 25%, 
+                rgba(139, 92, 246, 0.5) 50%, 
+                rgba(6, 182, 212, 0.5) 75%, 
+                transparent 100%
+            );
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--star-white), var(--star-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .category-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--star-cyan), var(--nebula-purple));
+            border-radius: 2px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.15));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: all 0.5s;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-20px) scale(1.03);
+            border-color: rgba(6, 182, 212, 0.8);
+            box-shadow: 
+                0 30px 80px rgba(6, 182, 212, 0.4),
+                0 0 0 2px rgba(6, 182, 212, 0.4) inset,
+                0 0 40px rgba(6, 182, 212, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+            top: -25%;
+            left: -25%;
+        }
+
+        .card-image {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.2);
+            transition: border-color 0.3s;
+        }
+
+        .card:hover .card-image {
+            border-bottom-color: rgba(6, 182, 212, 0.5);
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.4));
+        }
+
+        .card-image img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.2) rotate(12deg);
+            filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.6)) brightness(1.1);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            position: relative;
+            background: rgba(10, 10, 20, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--star-white), var(--star-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-subtitle {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--star-cyan);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-tag {
+            background: rgba(6, 182, 212, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(15, 15, 30, 0.6);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 
+                0 20px 60px rgba(139, 92, 246, 0.3),
+                0 0 0 1px rgba(139, 92, 246, 0.3) inset;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--star-white), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-description {
+            color: var(--text-dim);
+            line-height: 1.7;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        #detail-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            overflow-y: auto;
+            padding-top: 100px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--star-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--star-cyan);
+            transform: translateX(-5px);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .detail-image-wrap {
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 30px;
+            padding: 4rem;
+            text-align: center;
+            box-shadow: 
+                0 20px 60px rgba(6, 182, 212, 0.2),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-image-wrap img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.4));
+        }
+
+        .detail-info h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--star-white), var(--star-cyan), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .detail-info .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .detail-info .data-box {
+            background: rgba(6, 182, 212, 0.05);
+            border-left: 4px solid var(--star-cyan);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .detail-info .data-box p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 968px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .detail-info h1 {
+                font-size: 2.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 10, 20, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                gap: 2rem;
+                transition: right 0.3s ease;
+                border-left: 1px solid rgba(6, 182, 212, 0.3);
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.5rem 0;
+            }
+        }
+    </style>
+
+    <div class="space-canvas"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="/images/logo.png" alt="STARWALKER Logo">
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#planets">Planets</a></li>
+                <li><a href="#moons">Moons</a></li>
+                <li><a href="#asteroids">Asteroids</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="/community">Community</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="home-view">
+        <section class="hero">
+            <img src="/images/logo.png" alt="STARWALKER" class="hero-logo">
+            <p class="hero-subtitle">
+                Open Collaborative Space Cartography
+            </p>
+        </section>
+
+        <div class="content">
+            <section class="category" id="planets">
+                <div class="category-header">
+                    <h2 class="category-title">Planets</h2>
+                </div>
+                <div class="cards-grid" id="planets-grid"></div>
+            </section>
+
+            <section class="category" id="moons">
+                <div class="category-header">
+                    <h2 class="category-title">Moons</h2>
+                </div>
+                <div class="cards-grid" id="moons-grid"></div>
+            </section>
+
+            <section class="category" id="asteroids">
+                <div class="category-header">
+                    <h2 class="category-title">Asteroids</h2>
+                </div>
+                <div class="cards-grid" id="asteroids-grid"></div>
+            </section>
+
+            <section class="category" id="about">
+                <div class="category-header">
+                    <h2 class="category-title">About STARWALKER</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Explore Interactive Maps</h3>
+                        <p class="feature-description">Navigate detailed cartographic maps with advanced zoom capabilities. Explore every crater, mountain range, and geological feature of planets, moons, and asteroids across our solar system.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✏️</div>
+                        <h3 class="feature-title">Edit & Contribute</h3>
+                        <p class="feature-description">Join our collaborative community by editing and improving maps. Add new features, update coordinates, and contribute your astronomical knowledge to help build the most comprehensive space atlas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">Share with Community</h3>
+                        <p class="feature-description">Share your discoveries and custom maps with space enthusiasts worldwide. Collaborate on projects, discuss findings, and contribute to open-source space cartography.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">Advanced Filtering</h3>
+                        <p class="feature-description">Analyze celestial bodies with powerful filters. Search by geological features, composition, size, orbit characteristics, and points of interest to find exactly what you're looking for.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📍</div>
+                        <h3 class="-title">Points of Interest</h3>
+                        <p class="feature-description">Discover landing sites, impact craters, volcanic regions, and other remarkable features. Browse curated collections of scientifically significant locations across the solar system.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🪐</div>
+                        <h3 class="feature-title">Vast Database</h3>
+                        <p class="feature-description">Access detailed maps of numerous planets, moons, asteroids, and dwarf planets. From Mercury to the outer reaches of our solar system, explore over 20 celestial bodies and counting.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="detail-view">
+        <div class="content">
+            <button class="back-btn" id="back-button">
+                ← Back to Explorer
+            </button>
+            <div class="detail-grid">
+                <div class="detail-image-wrap">
+                    <img id="detail-image" src="" alt="">
+                </div>
+                <div class="detail-info">
+                    <h1 id="detail-title"></h1>
+                    <p class="subtitle" id="detail-subtitle"></p>
+                    <div class="data-box">
+                        <p id="detail-info"></p>
+                    </div>
+                    <a id="detail-link" href="#" class="btn btn-primary" style="display: inline-block; margin-top: 2rem;">
+                        Explore and create maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const spaceBodies = {
+            planets: [
+                { 
+                    name: 'Mercury', 
+                    file: 'mercury.json', 
+                    subtitle: 'The Swift Planet', 
+                    image: '/images/mercury.png',
+                    info: 'The smallest planet in our Solar System and closest to the Sun. Mercury has a heavily cratered surface similar to our Moon, with extreme temperature variations ranging from 430°C during the day to -180°C at night.'
+                },
+                { 
+                    name: 'Venus', 
+                    file: 'venus.json', 
+                    subtitle: 'The Morning Star', 
+                    image: '/images/venus.png',
+                    info: 'Often called Earth\'s twin due to similar size, Venus is the hottest planet with surface temperatures around 465°C. Its thick atmosphere of carbon dioxide creates a runaway greenhouse effect and crushing surface pressure.'
+                },
+                { 
+                    name: 'Mars', 
+                    file: 'mars.json', 
+                    subtitle: 'The Red Planet', 
+                    image: '/images/mars.png',
+                    info: 'Known for its rusty red appearance from iron oxide on its surface. Mars features the largest volcano in the Solar System (Olympus Mons) and a massive canyon system (Valles Marineris). Evidence suggests it once had liquid water.'
+                }
+            ],
+            moons: [
+                { 
+                    name: 'Moon', 
+                    file: 'moon.json', 
+                    subtitle: "Earth's Moon", 
+                    image: '/images/moon.png',
+                    info: 'Earth\'s only natural satellite and the fifth largest moon in the Solar System. The Moon\'s gravitational influence creates ocean tides and has helped stabilize Earth\'s axial tilt, making it crucial for life on our planet.'
+                },
+                { 
+                    name: 'Phobos', 
+                    file: 'phobos.json', 
+                    subtitle: 'Moon of Mars', 
+                    image: '/images/phobos.png',
+                    info: 'The larger and innermost of Mars\' two moons. Phobos orbits so close to Mars that it completes three orbits per Martian day and is slowly spiraling inward, destined to crash into Mars or break apart in about 50 million years.'
+                },
+                { 
+                    name: 'Io', 
+                    file: 'io.json', 
+                    subtitle: 'Moon of Jupiter', 
+                    image: '/images/io.png',
+                    info: 'The most volcanically active body in the Solar System. Io\'s surface is constantly reshaped by hundreds of active volcanoes, powered by tidal heating from Jupiter\'s immense gravitational pull, creating colorful sulfur compounds.'
+                },
+                { 
+                    name: 'Europa', 
+                    file: 'europa.json', 
+                    subtitle: 'Moon of Jupiter', 
+                    image: '/images/europa.png',
+                    info: 'One of the most promising places to search for life beyond Earth. Europa\'s smooth ice surface hides a global ocean of liquid water, potentially twice the volume of Earth\'s oceans, kept warm by tidal heating.'
+                },
+                { 
+                    name: 'Ganymede', 
+                    file: 'ganymede.json', 
+                    subtitle: 'Moon of Jupiter', 
+                    image: '/images/ganymede.png',
+                    info: 'The largest moon in the Solar System, even bigger than Mercury. Ganymede is the only moon with its own magnetic field and likely harbors a subsurface ocean beneath its icy crust.'
+                },
+                { 
+                    name: 'Mimas', 
+                    file: 'mimas.json', 
+                    subtitle: 'Moon of Saturn', 
+                    image: '/images/mimas.png',
+                    info: 'Famous for the massive Herschel Crater that gives it a Death Star-like appearance. This crater is about one-third the diameter of the moon itself, from an impact that nearly destroyed Mimas.'
+                },
+                { 
+                    name: 'Enceladus', 
+                    file: 'enceladus.json', 
+                    subtitle: 'Moon of Saturn', 
+                    image: '/images/enceladus.png',
+                    info: 'A small icy moon that shoots enormous geysers of water vapor and ice particles from its south polar region. These plumes suggest a subsurface ocean and make Enceladus a prime target in the search for extraterrestrial life.'
+                },
+                { 
+                    name: 'Tethys', 
+                    file: 'tethys.json', 
+                    subtitle: 'Moon of Saturn', 
+                    image: '/images/tethys.png',
+                    info: 'A heavily cratered icy moon with a distinctive feature: Odysseus Crater, one of the largest impact craters in the Solar System relative to body size, spanning about 40% of Tethys\' diameter.'
+                },
+                { 
+                    name: 'Dione', 
+                    file: 'dione.json', 
+                    subtitle: 'Moon of Saturn', 
+                    image: '/images/dione.png',
+                    info: 'An icy moon with bright ice cliffs and a possible subsurface ocean. Dione\'s trailing hemisphere is heavily cratered while its leading hemisphere shows extensive bright, wispy terrain from ice fractures.'
+                },
+                { 
+                    name: 'Rhea', 
+                    file: 'rhea.json', 
+                    subtitle: 'Moon of Saturn', 
+                    image: '/images/rhea.png',
+                    info: 'Saturn\'s second-largest moon with a heavily cratered surface and possible tenuous ring system. Rhea has a low density suggesting it\'s composed mainly of water ice with a small rocky core.'
+                },
+                { 
+                    name: 'Phoebe', 
+                    file: 'phoebe.json', 
+                    subtitle: 'Moon of Saturn', 
+                    image: '/images/phoebe.png',
+                    info: 'An irregular moon that orbits Saturn in a retrograde direction, suggesting it\'s a captured object from the Kuiper Belt. Phoebe has a dark surface rich in carbon and may harbor subsurface ice.'
+                }
+            ],
+            asteroids: [
+                { 
+                    name: 'Ceres', 
+                    file: 'ceres.json', 
+                    subtitle: 'Dwarf Planet', 
+                    image: '/images/ceres.png',
+                    info: 'The largest object in the asteroid belt between Mars and Jupiter. Ceres is the only dwarf planet in the inner Solar System and may harbor a subsurface ocean beneath its icy mantle, with bright salt deposits visible at Occator Crater.'
+                },
+                { 
+                    name: 'Vesta', 
+                    file: 'vesta.json', 
+                    subtitle: 'Brightest Asteroid', 
+                    image: '/images/vesta.png',
+                    info: 'The second-largest asteroid and one of the few visible to the naked eye. Vesta has a differentiated structure with a metallic core, rocky mantle, and crust, similar to terrestrial planets. It features a massive impact crater at its south pole.'
+                },
+                { 
+                    name: 'Bennu', 
+                    file: 'bennu.json', 
+                    subtitle: 'Near-Earth Asteroid', 
+                    image: '/images/bennu.png',
+                    info: 'A carbon-rich asteroid that could contain organic molecules from the early Solar System. NASA\'s OSIRIS-REx mission successfully collected samples from Bennu in 2020, which were returned to Earth in 2023 for analysis.'
+                },
+                { 
+                    name: 'Ryugu', 
+                    file: 'ryugu.json', 
+                    subtitle: 'Diamond-shaped Asteroid', 
+                    image: '/images/ryugu.png',
+                    info: 'A near-Earth asteroid with a distinctive spinning-top shape. Japan\'s Hayabusa2 mission collected samples that revealed primitive organic materials and water-bearing minerals, providing insights into the early Solar System and origins of life.'
+                }
+            ]
+        };
+
+        function createCard(body, category) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-image">
+                    <span class="card-tag">${category}</span>
+                    <img src="${body.image}" alt="${body.name}" onerror="this.src='/images/venus.png'">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">${body.name}</div>
+                    <div class="card-subtitle">${body.subtitle}</div>
+                </div>
+            `;
+            
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                showDetailModal(body);
+            });
+            
+            return card;
+        }
+
+        function showDetailModal(body) {
+            document.getElementById('detail-view').style.display = 'block';
+            document.getElementById('detail-title').textContent = body.name;
+            document.getElementById('detail-subtitle').textContent = body.subtitle;
+            document.getElementById('detail-image').src = body.image;
+            document.getElementById('detail-info').textContent = body.info;
+            
+            const detailLink = document.getElementById('detail-link');
+            detailLink.onclick = (e) => {
+                e.preventDefault();
+                window.location.href = `/${body.name.toLowerCase()}`;
+            };
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-view').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function renderCategories() {
+            const planetsGrid = document.getElementById('planets-grid');
+            const moonsGrid = document.getElementById('moons-grid');
+            const asteroidsGrid = document.getElementById('asteroids-grid');
+
+            spaceBodies.planets.forEach(planet => {
+                planetsGrid.appendChild(createCard(planet, 'Planet'));
+            });
+
+            spaceBodies.moons.forEach(moon => {
+                moonsGrid.appendChild(createCard(moon, 'Moon'));
+            });
+
+            spaceBodies.asteroids.forEach(asteroid => {
+                asteroidsGrid.appendChild(createCard(asteroid, 'Asteroid'));
+            });
+        }
+
+        document.getElementById('back-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            closeDetailModal();
+        });
+
+        document.getElementById('detail-view').addEventListener('click', (e) => {
+            if (e.target.id === 'detail-view') {
+                closeDetailModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('detail-view').style.display === 'block') {
+                closeDetailModal();
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Cerrar el menú móvil después de hacer clic en un enlace
+                    const navLinks = document.getElementById('nav-links');
+                    const hamburger = document.getElementById('hamburger');
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // Funcionalidad del menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        renderCategories();
+    </script>
+</Layout>

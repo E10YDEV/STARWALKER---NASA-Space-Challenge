@@ -1,0 +1,30 @@
+{
+	"Global Mosaic": {
+		"layer": null,
+		"active": true,
+		"url": "https://trek.nasa.gov/tiles/Ceres/EQ/Ceres_Dawn_FC_DLR_global_20ppd_Oct2015/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+		"attribution": "Global Mosaic",
+		"zoom": 4
+	},
+	"HAMO Colorized": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Ceres/EQ/Ceres_Dawn_FC_HAMO_ClrShade_DLR_Global_60ppd_Oct2016/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+		"attribution": "HAMO Colorized",
+		"zoom": 5
+	},
+	"HAMO hillshade": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Ceres/EQ/Ceres_Dawn_FC_HAMO_Shade_DLR_Global_60ppd_Oct2016/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+		"attribution": "HAMO hillshade",
+		"zoom": 5
+	},
+	"LAMO clear mosaic": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Ceres/EQ/CE_LAMO_G_00N_180E_EQU_CLR_scale.eq/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+		"attribution": "LAMO clear mosaic",
+		"zoom": 7
+	}
+}

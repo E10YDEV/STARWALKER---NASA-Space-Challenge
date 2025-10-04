@@ -1,0 +1,9 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Ryugu/EQ/ryugu_global_v_band/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Global Mosaic",
+    "zoom": 4
+  }
+}

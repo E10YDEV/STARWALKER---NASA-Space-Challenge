@@ -1,0 +1,23 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Bennu/EQ/Bennu_Global_Print_Mosaic_fix/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Global Mosaic",
+    "zoom": 7
+  },
+    "Color Hill Shade": {
+    "layer": null,
+    "active": false,
+    "url": "https://trek.nasa.gov/tiles/Bennu/EQ/Bennu_global_ShapeV28_5cm_HillshadeColor/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Color Hill Shade",
+    "zoom": 6
+  },
+    "Rock Abundance": {
+    "layer": null,
+    "active": false,
+    "url": "https://trek.nasa.gov/tiles/Bennu/EQ/Bennu_ColorizedBoulderAbundance/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Rock Abundance",
+    "zoom": 2
+  }
+}

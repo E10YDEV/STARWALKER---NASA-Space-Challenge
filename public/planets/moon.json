@@ -1,0 +1,44 @@
+{
+	"Global Mosaic": {
+		"layer": null,
+		"active": true,
+		"url": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+		"attribution": "Global Mosaic",
+		"zoom": 7
+	},
+	"Apollo 15": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Moon/EQ/Apollo15_MetricCam_ClrConf_Global_1024ppd/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Apollo 15",
+		"zoom": 7
+	},
+	"Clem UV-Vis FeO": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Moon/EQ/Clem_UVVIS_FeO_Clr_Global_152ppd/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Clem UV-Vis FeO",
+		"zoom": 6
+	},
+	"Clem UV-Vis TiO2": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Moon/EQ/Clem_UVVIS_TiO2_Clr_Global_152ppd/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Clem UV-Vis TiO2",
+		"zoom": 6
+	},
+	"Bouguer disturbances": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Moon/EQ/gggrx_1200a_boug_l180.eq/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Bouguer disturbances",
+		"zoom": 3
+	},
+	"Gravity anomalies": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Moon/EQ/gggrx_1200a_anom_l1200.eq/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Gravity anomalies",
+		"zoom": 3
+	}
+}

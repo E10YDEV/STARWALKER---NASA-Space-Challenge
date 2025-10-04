@@ -1,0 +1,445 @@
+---
+// src/pages/community-maps.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="STARWALKER - Community Maps">
+    <style is:global>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --space-void: #000000;
+            --space-deep: #0a0a14;
+            --space-dark: #0f0f1e;
+            --nebula-purple: #8b5cf6;
+            --nebula-pink: #ec4899;
+            --nebula-blue: #3b82f6;
+            --star-cyan: #06b6d4;
+            --star-white: #ffffff;
+            --glow-cyan: rgba(6, 182, 212, 0.5);
+            --glow-purple: rgba(139, 92, 246, 0.5);
+            --text-dim: #bababa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, sans-serif;
+            background: var(--space-void);
+            color: var(--star-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at top, var(--space-dark), var(--space-void));
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 20, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--star-cyan);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--star-cyan), var(--nebula-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--star-cyan);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--star-white), var(--star-cyan), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .table-container {
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(6, 182, 212, 0.1);
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+        }
+
+        th {
+            padding: 1.5rem 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--star-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(6, 182, 212, 0.05);
+            transform: translateX(5px);
+        }
+
+        td {
+            padding: 1.25rem 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .object-cell {
+            font-weight: 600;
+            color: var(--star-white);
+            font-size: 1.05rem;
+        }
+
+        .description-cell {
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .user-cell {
+            color: var(--nebula-purple);
+            font-weight: 500;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, var(--star-cyan), var(--nebula-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5);
+        }
+
+        .link-btn::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .link-btn:hover::after {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 968px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .main-content {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            th, td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .description-cell {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 10, 20, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                gap: 2rem;
+                transition: right 0.3s ease;
+                border-left: 1px solid rgba(6, 182, 212, 0.3);
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.5rem 0;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .description-cell {
+                max-width: 200px;
+                font-size: 0.8rem;
+            }
+
+            .link-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+
+    <div class="space-canvas"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="/images/logo.png" alt="STARWALKER Logo">
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Community Maps</h1>
+                <p class="page-subtitle">
+                    Explore maps created and shared by our global community of space cartographers
+                </p>
+            </div>
+
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table id="maps-table">
+                        <thead>
+                            <tr>
+                                <th>Object</th>
+                                <th>Description</th>
+                                <th>User</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody id="maps-tbody">
+                            <!-- Data will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - replace with your actual data source
+        const communityMaps = [
+            {
+                object: 'Mars - Top missions',
+                description: 'Each point on the map indicates the trajectory or landing site of a mission, along with its launch year and main scientific objectives: studying the atmosphere, analyzing the surface, searching for signs of water or past life, and preparing for future crewed missions.',
+                user: 'AstroAna_42',
+                link: '/mars?hash=MARS-MISSION'
+            },
+            {
+                object: 'Moon - History',
+                description: 'The map provides detailed information on various lunar missions carried out by different space agencies around the world. Each point or trajectory shows the mission’s path, landing site, or area of study, along with key details such as launch year, responsible agency, and main scientific objectives.',
+                user: 'Andres',
+                link: '/moon?hash=MOON-MISSION'
+            }
+        ];
+
+        function renderTable() {
+            const tbody = document.getElementById('maps-tbody');
+            
+            communityMaps.forEach(map => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="object-cell">${map.object}</td>
+                    <td class="description-cell">${map.description}</td>
+                    <td class="user-cell">${map.user}</td>
+                    <td>
+                        <a href="${map.link}" class="link-btn">View Map</a>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Render table on page load
+        renderTable();
+    </script>
+</Layout>

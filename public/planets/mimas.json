@@ -1,0 +1,9 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Mimas/EQ/MI_170630_DLR_basemap/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Globak Mosaic",
+    "zoom": 4
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Dione/EQ/Dione_Cassini_Voyageglobal_154m/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Globak Mosaic",
+    "zoom": 5
+  }
+}

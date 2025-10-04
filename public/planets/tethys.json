@@ -1,0 +1,9 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Tethys/EQ/Tethys_Cassini_mosaic_global_293m/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Globak Mosaic",
+    "zoom": 4
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Mercury/EQ/Mercury_MESSENGER_MDIS_Basemap_BDR_Mosaic_Global_166m/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Global Mosaic",
+    "zoom": 7
+  },
+    "Gravity Anomaly": {
+    "layer": null,
+    "active": false,
+    "url": "https://trek.nasa.gov/tiles/Mercury/EQ/Anomaly_Map_HgM008_Lmax90_16ppd/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Gravity Anomaly",
+    "zoom": 3
+  },
+    "Color Hill Shade": {
+    "layer": null,
+    "active": false,
+    "url": "https://trek.nasa.gov/tiles/Mercury/EQ/Mercury_Messenger_USGS_DEM_665m_v2_HillshadeColor/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Color Hill Shade",
+    "zoom": 5
+  }
+}

@@ -1,0 +1,16 @@
+{
+	"Global Mosaic": {
+		"layer": null,
+		"active": true,
+		"url": "https://trek.nasa.gov/tiles/Io/EQ/Io_GalileoSSI_Voyager_Global_Mosaic_ClrMerge_1km/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Global Mosaic",
+		"zoom": 4
+	},
+	"Voyager ISS and Galileo SSI": {
+		"layer": null,
+		"active": false,
+		"url": "https://trek.nasa.gov/tiles/Io/EQ/IoDEM_ClrSlope/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Voyager ISS and Galileo SSI",
+		"zoom": 4
+	}	
+}

@@ -1,0 +1,23 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Venus/EQ/Venus_Magellan_C3-MDIR_Global_Mosaic_2025m/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Global Mosaic",
+    "zoom": 5
+  },
+  "Color Microwave": {
+    "layer": null,
+    "active": false,
+    "url": "https://trek.nasa.gov/tiles/Venus/EQ/Venus_Magellan_ClrMicrowaveEmissivity_Global_4641m/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Color Microwave",
+    "zoom" : 4
+  },
+  "Color Hill Shade": {
+    "layer": null,
+    "active": false,
+    "url": "https://trek.nasa.gov/tiles/Venus/EQ/Venus_Magellan_ClrHillshade_Global_4641m_gapfilled_v02/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+    "attribution": "Color Hill Shade",
+    "zoom" : 4
+  }
+}

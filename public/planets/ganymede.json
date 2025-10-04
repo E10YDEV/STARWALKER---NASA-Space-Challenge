@@ -1,0 +1,9 @@
+{
+	"Global Mosaic": {
+		"layer": null,
+		"active": true,
+		"url": "https://trek.nasa.gov/tiles/Ganymede/EQ/Ganymede_Voyager_GalileoSSI_global_mosaic_1km/1.0.0//default/default028mm/{z}/{y}/{x}.png",
+		"attribution": "Global Mosaic",
+		"zoom": 5
+	}
+}

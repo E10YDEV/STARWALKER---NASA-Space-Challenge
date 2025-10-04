@@ -1,0 +1,9 @@
+{
+  "Global Mosaic": {
+    "layer": null,
+    "active": true,
+    "url": "https://trek.nasa.gov/tiles/Iapetus/EQ/Iapetus_Cassini_Voyager_mosaic_global_783m/1.0.0//default/default028mm/{z}/{y}/{x}.jpg",
+    "attribution": "Globak Mosaic",
+    "zoom": 3
+  }
+}
