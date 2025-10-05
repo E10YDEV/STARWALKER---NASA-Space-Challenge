@@ -1,11 +1,11 @@
 ---
 // src/pages/index.astro
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="STARWALKER - Spacial Cartography Explorer">
     <style is:global>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
         :root {
             --space-void: #000000;
@@ -26,9 +26,39 @@ import Layout from '../layouts/Layout.astro';
             padding: 0;
             box-sizing: border-box;
         }
+        .hero-buttons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .hero-buttons .btn {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition:
+                background 0.2s ease,
+                transform 0.1s ease;
+
+            border: 1px solid rgba(255, 255, 255, 0.29);
+        }
+
+        .hero-buttons .btn:hover {
+            background: #444;
+            transform: translateY(-2px);
+        }
 
         body {
-            font-family: 'Space Grotesk', -apple-system, sans-serif;
+            font-family:
+                "Space Grotesk",
+                -apple-system,
+                sans-serif;
             background: var(--space-void);
             color: var(--star-white);
             overflow-x: hidden;
@@ -42,7 +72,11 @@ import Layout from '../layouts/Layout.astro';
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at top, var(--space-dark), var(--space-void));
+            background: radial-gradient(
+                ellipse at top,
+                var(--space-dark),
+                var(--space-void)
+            );
         }
 
         nav {
@@ -125,13 +159,17 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .nav-links a::after {
-            content: '';
+            content: "";
             position: absolute;
             bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--star-cyan), var(--nebula-purple));
+            background: linear-gradient(
+                90deg,
+                var(--star-cyan),
+                var(--nebula-purple)
+            );
             transition: width 0.3s ease;
         }
 
@@ -156,25 +194,30 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .hero::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmJ3dnR4bm5nYTJja2dxdWZ4cXVzdW91NGNxcmJ6Mm9iZTg5OXgxMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gseZaTORnFo5NEk/giphy.gif') center/cover no-repeat;
+            background: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmJ3dnR4bm5nYTJja2dxdWZ4cXVzdW91NGNxcmJ6Mm9iZTg5OXgxMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gseZaTORnFo5NEk/giphy.gif")
+                center/cover no-repeat;
             opacity: 1;
             z-index: -2;
         }
 
         .hero::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(10, 10, 20, 0.8));
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.3),
+                rgba(10, 10, 20, 0.8)
+            );
             z-index: -1;
         }
 
@@ -216,19 +259,28 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--star-cyan), var(--nebula-blue));
+            background: linear-gradient(
+                135deg,
+                var(--star-cyan),
+                var(--nebula-blue)
+            );
             color: white;
             box-shadow: 0 10px 40px rgba(6, 182, 212, 0.3);
         }
 
         .btn-primary::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
             transition: left 0.5s;
         }
 
@@ -255,17 +307,18 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .category:not(:last-child)::after {
-            content: '';
+            content: "";
             position: absolute;
             bottom: -3rem;
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(6, 182, 212, 0.5) 25%, 
-                rgba(139, 92, 246, 0.5) 50%, 
-                rgba(6, 182, 212, 0.5) 75%, 
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(6, 182, 212, 0.5) 25%,
+                rgba(139, 92, 246, 0.5) 50%,
+                rgba(6, 182, 212, 0.5) 75%,
                 transparent 100%
             );
         }
@@ -280,7 +333,11 @@ import Layout from '../layouts/Layout.astro';
         .category-title {
             font-size: 2.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--star-white), var(--star-cyan));
+            background: linear-gradient(
+                135deg,
+                var(--star-white),
+                var(--star-cyan)
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
@@ -288,14 +345,18 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .category-title::before {
-            content: '';
+            content: "";
             position: absolute;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
             width: 4px;
             height: 40px;
-            background: linear-gradient(180deg, var(--star-cyan), var(--nebula-purple));
+            background: linear-gradient(
+                180deg,
+                var(--star-cyan),
+                var(--nebula-purple)
+            );
             border-radius: 2px;
         }
 
@@ -314,31 +375,39 @@ import Layout from '../layouts/Layout.astro';
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            box-shadow: 
+            box-shadow:
                 0 8px 32px rgba(0, 0, 0, 0.4),
                 inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
         .card::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.15));
+            background: linear-gradient(
+                135deg,
+                rgba(6, 182, 212, 0.15),
+                rgba(139, 92, 246, 0.15)
+            );
             opacity: 0;
             transition: opacity 0.5s;
         }
 
         .card::after {
-            content: '';
+            content: "";
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            background: radial-gradient(
+                circle,
+                rgba(6, 182, 212, 0.1) 0%,
+                transparent 70%
+            );
             opacity: 0;
             transition: all 0.5s;
             pointer-events: none;
@@ -347,7 +416,7 @@ import Layout from '../layouts/Layout.astro';
         .card:hover {
             transform: translateY(-20px) scale(1.03);
             border-color: rgba(6, 182, 212, 0.8);
-            box-shadow: 
+            box-shadow:
                 0 30px 80px rgba(6, 182, 212, 0.4),
                 0 0 0 2px rgba(6, 182, 212, 0.4) inset,
                 0 0 40px rgba(6, 182, 212, 0.3);
@@ -367,7 +436,11 @@ import Layout from '../layouts/Layout.astro';
             position: relative;
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            background: linear-gradient(
+                135deg,
+                rgba(59, 130, 246, 0.1),
+                rgba(139, 92, 246, 0.1)
+            );
             display: flex;
             align-items: center;
             justify-content: center;
@@ -381,13 +454,17 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .card-image::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.4));
+            background: radial-gradient(
+                circle at center,
+                transparent 40%,
+                rgba(0, 0, 0, 0.4)
+            );
         }
 
         .card-image img {
@@ -402,7 +479,8 @@ import Layout from '../layouts/Layout.astro';
 
         .card:hover .card-image img {
             transform: scale(1.2) rotate(12deg);
-            filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.6)) brightness(1.1);
+            filter: drop-shadow(0 30px 60px rgba(6, 182, 212, 0.6))
+                brightness(1.1);
         }
 
         .card-content {
@@ -415,7 +493,11 @@ import Layout from '../layouts/Layout.astro';
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--star-white), var(--star-cyan));
+            background: linear-gradient(
+                135deg,
+                var(--star-white),
+                var(--star-cyan)
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -470,13 +552,17 @@ import Layout from '../layouts/Layout.astro';
         }
 
         .feature-card::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            background: linear-gradient(
+                135deg,
+                rgba(139, 92, 246, 0.1),
+                rgba(236, 72, 153, 0.1)
+            );
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -484,7 +570,7 @@ import Layout from '../layouts/Layout.astro';
         .feature-card:hover {
             transform: translateY(-10px);
             border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 
+            box-shadow:
                 0 20px 60px rgba(139, 92, 246, 0.3),
                 0 0 0 1px rgba(139, 92, 246, 0.3) inset;
         }
@@ -503,7 +589,11 @@ import Layout from '../layouts/Layout.astro';
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--star-white), var(--nebula-purple));
+            background: linear-gradient(
+                135deg,
+                var(--star-white),
+                var(--nebula-purple)
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
@@ -534,8 +624,12 @@ import Layout from '../layouts/Layout.astro';
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .back-btn {
@@ -574,7 +668,7 @@ import Layout from '../layouts/Layout.astro';
             border-radius: 30px;
             padding: 4rem;
             text-align: center;
-            box-shadow: 
+            box-shadow:
                 0 20px 60px rgba(6, 182, 212, 0.2),
                 inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
@@ -589,7 +683,12 @@ import Layout from '../layouts/Layout.astro';
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--star-white), var(--star-cyan), var(--nebula-purple));
+            background: linear-gradient(
+                135deg,
+                var(--star-white),
+                var(--star-cyan),
+                var(--nebula-purple)
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -680,7 +779,7 @@ import Layout from '../layouts/Layout.astro';
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <img src="/images/logo.png" alt="STARWALKER Logo">
+                <img src="/images/logo.png" alt="STARWALKER Logo" />
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -699,10 +798,25 @@ import Layout from '../layouts/Layout.astro';
 
     <div id="home-view">
         <section class="hero">
-            <img src="/images/logo.png" alt="STARWALKER" class="hero-logo">
-            <p class="hero-subtitle">
-                Open Collaborative Space Cartography
-            </p>
+            <img src="/images/logo.png" alt="STARWALKER" class="hero-logo" />
+
+            <p class="hero-subtitle">Open Collaborative Space Cartography</p>
+
+            <div class="hero-buttons">
+                <a href="https://youtu.be/kfJ09O_uVwA" target="_blank" class="btn">
+                    <i class="fas fa-play"></i> Demonstration
+                </a>
+                <a
+                    href="https://github.com/E10YDEV/STARWALKER---NASA-Space-Challenge"
+                    target="_blank"
+                    class="btn"
+                >
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://www.youtube.com/watch?v=chm13rpsthE" target="_blank" class="btn">
+                    <i class="fas fa-chalkboard-teacher"></i> Presentation
+                </a>
+            </div>
         </section>
 
         <div class="content">
@@ -735,32 +849,63 @@ import Layout from '../layouts/Layout.astro';
                     <div class="feature-card">
                         <div class="feature-icon">🔍</div>
                         <h3 class="feature-title">Explore Interactive Maps</h3>
-                        <p class="feature-description">Navigate detailed cartographic maps with advanced zoom capabilities. Explore every crater, mountain range, and geological feature of planets, moons, and asteroids across our solar system.</p>
+                        <p class="feature-description">
+                            Navigate detailed cartographic maps with advanced
+                            zoom capabilities. Explore every crater, mountain
+                            range, and geological feature of planets, moons, and
+                            asteroids across our solar system.
+                        </p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">✏️</div>
                         <h3 class="feature-title">Edit & Contribute</h3>
-                        <p class="feature-description">Join our collaborative community by editing and improving maps. Add new features, update coordinates, and contribute your astronomical knowledge to help build the most comprehensive space atlas.</p>
+                        <p class="feature-description">
+                            Join our collaborative community by editing and
+                            improving maps. Add new features, update
+                            coordinates, and contribute your astronomical
+                            knowledge to help build the most comprehensive space
+                            atlas.
+                        </p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🌐</div>
                         <h3 class="feature-title">Share with Community</h3>
-                        <p class="feature-description">Share your discoveries and custom maps with space enthusiasts worldwide. Collaborate on projects, discuss findings, and contribute to open-source space cartography.</p>
+                        <p class="feature-description">
+                            Share your discoveries and custom maps with space
+                            enthusiasts worldwide. Collaborate on projects,
+                            discuss findings, and contribute to open-source
+                            space cartography.
+                        </p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🎯</div>
                         <h3 class="feature-title">Advanced Filtering</h3>
-                        <p class="feature-description">Analyze celestial bodies with powerful filters. Search by geological features, composition, size, orbit characteristics, and points of interest to find exactly what you're looking for.</p>
+                        <p class="feature-description">
+                            Analyze celestial bodies with powerful filters.
+                            Search by geological features, composition, size,
+                            orbit characteristics, and points of interest to
+                            find exactly what you're looking for.
+                        </p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📍</div>
                         <h3 class="-title">Points of Interest</h3>
-                        <p class="feature-description">Discover landing sites, impact craters, volcanic regions, and other remarkable features. Browse curated collections of scientifically significant locations across the solar system.</p>
+                        <p class="feature-description">
+                            Discover landing sites, impact craters, volcanic
+                            regions, and other remarkable features. Browse
+                            curated collections of scientifically significant
+                            locations across the solar system.
+                        </p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🪐</div>
                         <h3 class="feature-title">Vast Database</h3>
-                        <p class="feature-description">Access detailed maps of numerous planets, moons, asteroids, and dwarf planets. From Mercury to the outer reaches of our solar system, explore over 20 celestial bodies and counting.</p>
+                        <p class="feature-description">
+                            Access detailed maps of numerous planets, moons,
+                            asteroids, and dwarf planets. From Mercury to the
+                            outer reaches of our solar system, explore over 20
+                            celestial bodies and counting.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -774,7 +919,7 @@ import Layout from '../layouts/Layout.astro';
             </button>
             <div class="detail-grid">
                 <div class="detail-image-wrap">
-                    <img id="detail-image" src="" alt="">
+                    <img id="detail-image" src="" alt="" />
                 </div>
                 <div class="detail-info">
                     <h1 id="detail-title"></h1>
@@ -782,7 +927,12 @@ import Layout from '../layouts/Layout.astro';
                     <div class="data-box">
                         <p id="detail-info"></p>
                     </div>
-                    <a id="detail-link" href="#" class="btn btn-primary" style="display: inline-block; margin-top: 2rem;">
+                    <a
+                        id="detail-link"
+                        href="#"
+                        class="btn btn-primary"
+                        style="display: inline-block; margin-top: 2rem;"
+                    >
                         Explore and create maps
                     </a>
                 </div>
@@ -793,142 +943,142 @@ import Layout from '../layouts/Layout.astro';
     <script>
         const spaceBodies = {
             planets: [
-                { 
-                    name: 'Mercury', 
-                    file: 'mercury.json', 
-                    subtitle: 'The Swift Planet', 
-                    image: '/images/mercury.png',
-                    info: 'The smallest planet in our Solar System and closest to the Sun. Mercury has a heavily cratered surface similar to our Moon, with extreme temperature variations ranging from 430°C during the day to -180°C at night.'
+                {
+                    name: "Mercury",
+                    file: "mercury.json",
+                    subtitle: "The Swift Planet",
+                    image: "/images/mercury.png",
+                    info: "The smallest planet in our Solar System and closest to the Sun. Mercury has a heavily cratered surface similar to our Moon, with extreme temperature variations ranging from 430°C during the day to -180°C at night.",
                 },
-                { 
-                    name: 'Venus', 
-                    file: 'venus.json', 
-                    subtitle: 'The Morning Star', 
-                    image: '/images/venus.png',
-                    info: 'Often called Earth\'s twin due to similar size, Venus is the hottest planet with surface temperatures around 465°C. Its thick atmosphere of carbon dioxide creates a runaway greenhouse effect and crushing surface pressure.'
+                {
+                    name: "Venus",
+                    file: "venus.json",
+                    subtitle: "The Morning Star",
+                    image: "/images/venus.png",
+                    info: "Often called Earth's twin due to similar size, Venus is the hottest planet with surface temperatures around 465°C. Its thick atmosphere of carbon dioxide creates a runaway greenhouse effect and crushing surface pressure.",
                 },
-                { 
-                    name: 'Mars', 
-                    file: 'mars.json', 
-                    subtitle: 'The Red Planet', 
-                    image: '/images/mars.png',
-                    info: 'Known for its rusty red appearance from iron oxide on its surface. Mars features the largest volcano in the Solar System (Olympus Mons) and a massive canyon system (Valles Marineris). Evidence suggests it once had liquid water.'
-                }
+                {
+                    name: "Mars",
+                    file: "mars.json",
+                    subtitle: "The Red Planet",
+                    image: "/images/mars.png",
+                    info: "Known for its rusty red appearance from iron oxide on its surface. Mars features the largest volcano in the Solar System (Olympus Mons) and a massive canyon system (Valles Marineris). Evidence suggests it once had liquid water.",
+                },
             ],
             moons: [
-                { 
-                    name: 'Moon', 
-                    file: 'moon.json', 
-                    subtitle: "Earth's Moon", 
-                    image: '/images/moon.png',
-                    info: 'Earth\'s only natural satellite and the fifth largest moon in the Solar System. The Moon\'s gravitational influence creates ocean tides and has helped stabilize Earth\'s axial tilt, making it crucial for life on our planet.'
+                {
+                    name: "Moon",
+                    file: "moon.json",
+                    subtitle: "Earth's Moon",
+                    image: "/images/moon.png",
+                    info: "Earth's only natural satellite and the fifth largest moon in the Solar System. The Moon's gravitational influence creates ocean tides and has helped stabilize Earth's axial tilt, making it crucial for life on our planet.",
                 },
-                { 
-                    name: 'Phobos', 
-                    file: 'phobos.json', 
-                    subtitle: 'Moon of Mars', 
-                    image: '/images/phobos.png',
-                    info: 'The larger and innermost of Mars\' two moons. Phobos orbits so close to Mars that it completes three orbits per Martian day and is slowly spiraling inward, destined to crash into Mars or break apart in about 50 million years.'
+                {
+                    name: "Phobos",
+                    file: "phobos.json",
+                    subtitle: "Moon of Mars",
+                    image: "/images/phobos.png",
+                    info: "The larger and innermost of Mars' two moons. Phobos orbits so close to Mars that it completes three orbits per Martian day and is slowly spiraling inward, destined to crash into Mars or break apart in about 50 million years.",
                 },
-                { 
-                    name: 'Io', 
-                    file: 'io.json', 
-                    subtitle: 'Moon of Jupiter', 
-                    image: '/images/io.png',
-                    info: 'The most volcanically active body in the Solar System. Io\'s surface is constantly reshaped by hundreds of active volcanoes, powered by tidal heating from Jupiter\'s immense gravitational pull, creating colorful sulfur compounds.'
+                {
+                    name: "Io",
+                    file: "io.json",
+                    subtitle: "Moon of Jupiter",
+                    image: "/images/io.png",
+                    info: "The most volcanically active body in the Solar System. Io's surface is constantly reshaped by hundreds of active volcanoes, powered by tidal heating from Jupiter's immense gravitational pull, creating colorful sulfur compounds.",
                 },
-                { 
-                    name: 'Europa', 
-                    file: 'europa.json', 
-                    subtitle: 'Moon of Jupiter', 
-                    image: '/images/europa.png',
-                    info: 'One of the most promising places to search for life beyond Earth. Europa\'s smooth ice surface hides a global ocean of liquid water, potentially twice the volume of Earth\'s oceans, kept warm by tidal heating.'
+                {
+                    name: "Europa",
+                    file: "europa.json",
+                    subtitle: "Moon of Jupiter",
+                    image: "/images/europa.png",
+                    info: "One of the most promising places to search for life beyond Earth. Europa's smooth ice surface hides a global ocean of liquid water, potentially twice the volume of Earth's oceans, kept warm by tidal heating.",
                 },
-                { 
-                    name: 'Ganymede', 
-                    file: 'ganymede.json', 
-                    subtitle: 'Moon of Jupiter', 
-                    image: '/images/ganymede.png',
-                    info: 'The largest moon in the Solar System, even bigger than Mercury. Ganymede is the only moon with its own magnetic field and likely harbors a subsurface ocean beneath its icy crust.'
+                {
+                    name: "Ganymede",
+                    file: "ganymede.json",
+                    subtitle: "Moon of Jupiter",
+                    image: "/images/ganymede.png",
+                    info: "The largest moon in the Solar System, even bigger than Mercury. Ganymede is the only moon with its own magnetic field and likely harbors a subsurface ocean beneath its icy crust.",
                 },
-                { 
-                    name: 'Mimas', 
-                    file: 'mimas.json', 
-                    subtitle: 'Moon of Saturn', 
-                    image: '/images/mimas.png',
-                    info: 'Famous for the massive Herschel Crater that gives it a Death Star-like appearance. This crater is about one-third the diameter of the moon itself, from an impact that nearly destroyed Mimas.'
+                {
+                    name: "Mimas",
+                    file: "mimas.json",
+                    subtitle: "Moon of Saturn",
+                    image: "/images/mimas.png",
+                    info: "Famous for the massive Herschel Crater that gives it a Death Star-like appearance. This crater is about one-third the diameter of the moon itself, from an impact that nearly destroyed Mimas.",
                 },
-                { 
-                    name: 'Enceladus', 
-                    file: 'enceladus.json', 
-                    subtitle: 'Moon of Saturn', 
-                    image: '/images/enceladus.png',
-                    info: 'A small icy moon that shoots enormous geysers of water vapor and ice particles from its south polar region. These plumes suggest a subsurface ocean and make Enceladus a prime target in the search for extraterrestrial life.'
+                {
+                    name: "Enceladus",
+                    file: "enceladus.json",
+                    subtitle: "Moon of Saturn",
+                    image: "/images/enceladus.png",
+                    info: "A small icy moon that shoots enormous geysers of water vapor and ice particles from its south polar region. These plumes suggest a subsurface ocean and make Enceladus a prime target in the search for extraterrestrial life.",
                 },
-                { 
-                    name: 'Tethys', 
-                    file: 'tethys.json', 
-                    subtitle: 'Moon of Saturn', 
-                    image: '/images/tethys.png',
-                    info: 'A heavily cratered icy moon with a distinctive feature: Odysseus Crater, one of the largest impact craters in the Solar System relative to body size, spanning about 40% of Tethys\' diameter.'
+                {
+                    name: "Tethys",
+                    file: "tethys.json",
+                    subtitle: "Moon of Saturn",
+                    image: "/images/tethys.png",
+                    info: "A heavily cratered icy moon with a distinctive feature: Odysseus Crater, one of the largest impact craters in the Solar System relative to body size, spanning about 40% of Tethys' diameter.",
                 },
-                { 
-                    name: 'Dione', 
-                    file: 'dione.json', 
-                    subtitle: 'Moon of Saturn', 
-                    image: '/images/dione.png',
-                    info: 'An icy moon with bright ice cliffs and a possible subsurface ocean. Dione\'s trailing hemisphere is heavily cratered while its leading hemisphere shows extensive bright, wispy terrain from ice fractures.'
+                {
+                    name: "Dione",
+                    file: "dione.json",
+                    subtitle: "Moon of Saturn",
+                    image: "/images/dione.png",
+                    info: "An icy moon with bright ice cliffs and a possible subsurface ocean. Dione's trailing hemisphere is heavily cratered while its leading hemisphere shows extensive bright, wispy terrain from ice fractures.",
                 },
-                { 
-                    name: 'Rhea', 
-                    file: 'rhea.json', 
-                    subtitle: 'Moon of Saturn', 
-                    image: '/images/rhea.png',
-                    info: 'Saturn\'s second-largest moon with a heavily cratered surface and possible tenuous ring system. Rhea has a low density suggesting it\'s composed mainly of water ice with a small rocky core.'
+                {
+                    name: "Rhea",
+                    file: "rhea.json",
+                    subtitle: "Moon of Saturn",
+                    image: "/images/rhea.png",
+                    info: "Saturn's second-largest moon with a heavily cratered surface and possible tenuous ring system. Rhea has a low density suggesting it's composed mainly of water ice with a small rocky core.",
                 },
-                { 
-                    name: 'Phoebe', 
-                    file: 'phoebe.json', 
-                    subtitle: 'Moon of Saturn', 
-                    image: '/images/phoebe.png',
-                    info: 'An irregular moon that orbits Saturn in a retrograde direction, suggesting it\'s a captured object from the Kuiper Belt. Phoebe has a dark surface rich in carbon and may harbor subsurface ice.'
-                }
+                {
+                    name: "Phoebe",
+                    file: "phoebe.json",
+                    subtitle: "Moon of Saturn",
+                    image: "/images/phoebe.png",
+                    info: "An irregular moon that orbits Saturn in a retrograde direction, suggesting it's a captured object from the Kuiper Belt. Phoebe has a dark surface rich in carbon and may harbor subsurface ice.",
+                },
             ],
             asteroids: [
-                { 
-                    name: 'Ceres', 
-                    file: 'ceres.json', 
-                    subtitle: 'Dwarf Planet', 
-                    image: '/images/ceres.png',
-                    info: 'The largest object in the asteroid belt between Mars and Jupiter. Ceres is the only dwarf planet in the inner Solar System and may harbor a subsurface ocean beneath its icy mantle, with bright salt deposits visible at Occator Crater.'
+                {
+                    name: "Ceres",
+                    file: "ceres.json",
+                    subtitle: "Dwarf Planet",
+                    image: "/images/ceres.png",
+                    info: "The largest object in the asteroid belt between Mars and Jupiter. Ceres is the only dwarf planet in the inner Solar System and may harbor a subsurface ocean beneath its icy mantle, with bright salt deposits visible at Occator Crater.",
                 },
-                { 
-                    name: 'Vesta', 
-                    file: 'vesta.json', 
-                    subtitle: 'Brightest Asteroid', 
-                    image: '/images/vesta.png',
-                    info: 'The second-largest asteroid and one of the few visible to the naked eye. Vesta has a differentiated structure with a metallic core, rocky mantle, and crust, similar to terrestrial planets. It features a massive impact crater at its south pole.'
+                {
+                    name: "Vesta",
+                    file: "vesta.json",
+                    subtitle: "Brightest Asteroid",
+                    image: "/images/vesta.png",
+                    info: "The second-largest asteroid and one of the few visible to the naked eye. Vesta has a differentiated structure with a metallic core, rocky mantle, and crust, similar to terrestrial planets. It features a massive impact crater at its south pole.",
                 },
-                { 
-                    name: 'Bennu', 
-                    file: 'bennu.json', 
-                    subtitle: 'Near-Earth Asteroid', 
-                    image: '/images/bennu.png',
-                    info: 'A carbon-rich asteroid that could contain organic molecules from the early Solar System. NASA\'s OSIRIS-REx mission successfully collected samples from Bennu in 2020, which were returned to Earth in 2023 for analysis.'
+                {
+                    name: "Bennu",
+                    file: "bennu.json",
+                    subtitle: "Near-Earth Asteroid",
+                    image: "/images/bennu.png",
+                    info: "A carbon-rich asteroid that could contain organic molecules from the early Solar System. NASA's OSIRIS-REx mission successfully collected samples from Bennu in 2020, which were returned to Earth in 2023 for analysis.",
                 },
-                { 
-                    name: 'Ryugu', 
-                    file: 'ryugu.json', 
-                    subtitle: 'Diamond-shaped Asteroid', 
-                    image: '/images/ryugu.png',
-                    info: 'A near-Earth asteroid with a distinctive spinning-top shape. Japan\'s Hayabusa2 mission collected samples that revealed primitive organic materials and water-bearing minerals, providing insights into the early Solar System and origins of life.'
-                }
-            ]
+                {
+                    name: "Ryugu",
+                    file: "ryugu.json",
+                    subtitle: "Diamond-shaped Asteroid",
+                    image: "/images/ryugu.png",
+                    info: "A near-Earth asteroid with a distinctive spinning-top shape. Japan's Hayabusa2 mission collected samples that revealed primitive organic materials and water-bearing minerals, providing insights into the early Solar System and origins of life.",
+                },
+            ],
         };
 
         function createCard(body, category) {
-            const card = document.createElement('div');
-            card.className = 'card';
+            const card = document.createElement("div");
+            card.className = "card";
             card.innerHTML = `
                 <div class="card-image">
                     <span class="card-tag">${category}</span>
@@ -939,100 +1089,113 @@ import Layout from '../layouts/Layout.astro';
                     <div class="card-subtitle">${body.subtitle}</div>
                 </div>
             `;
-            
-            card.addEventListener('click', (e) => {
+
+            card.addEventListener("click", (e) => {
                 e.preventDefault();
                 showDetailModal(body);
             });
-            
+
             return card;
         }
 
         function showDetailModal(body) {
-            document.getElementById('detail-view').style.display = 'block';
-            document.getElementById('detail-title').textContent = body.name;
-            document.getElementById('detail-subtitle').textContent = body.subtitle;
-            document.getElementById('detail-image').src = body.image;
-            document.getElementById('detail-info').textContent = body.info;
-            
-            const detailLink = document.getElementById('detail-link');
+            document.getElementById("detail-view").style.display = "block";
+            document.getElementById("detail-title").textContent = body.name;
+            document.getElementById("detail-subtitle").textContent =
+                body.subtitle;
+            document.getElementById("detail-image").src = body.image;
+            document.getElementById("detail-info").textContent = body.info;
+
+            const detailLink = document.getElementById("detail-link");
             detailLink.onclick = (e) => {
                 e.preventDefault();
                 window.location.href = `/${body.name.toLowerCase()}`;
             };
-            
-            document.body.style.overflow = 'hidden';
+
+            document.body.style.overflow = "hidden";
         }
 
         function closeDetailModal() {
-            document.getElementById('detail-view').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            document.getElementById("detail-view").style.display = "none";
+            document.body.style.overflow = "auto";
         }
 
         function renderCategories() {
-            const planetsGrid = document.getElementById('planets-grid');
-            const moonsGrid = document.getElementById('moons-grid');
-            const asteroidsGrid = document.getElementById('asteroids-grid');
+            const planetsGrid = document.getElementById("planets-grid");
+            const moonsGrid = document.getElementById("moons-grid");
+            const asteroidsGrid = document.getElementById("asteroids-grid");
 
-            spaceBodies.planets.forEach(planet => {
-                planetsGrid.appendChild(createCard(planet, 'Planet'));
+            spaceBodies.planets.forEach((planet) => {
+                planetsGrid.appendChild(createCard(planet, "Planet"));
             });
 
-            spaceBodies.moons.forEach(moon => {
-                moonsGrid.appendChild(createCard(moon, 'Moon'));
+            spaceBodies.moons.forEach((moon) => {
+                moonsGrid.appendChild(createCard(moon, "Moon"));
             });
 
-            spaceBodies.asteroids.forEach(asteroid => {
-                asteroidsGrid.appendChild(createCard(asteroid, 'Asteroid'));
+            spaceBodies.asteroids.forEach((asteroid) => {
+                asteroidsGrid.appendChild(createCard(asteroid, "Asteroid"));
             });
         }
 
-        document.getElementById('back-button').addEventListener('click', (e) => {
-            e.preventDefault();
-            closeDetailModal();
-        });
-
-        document.getElementById('detail-view').addEventListener('click', (e) => {
-            if (e.target.id === 'detail-view') {
-                closeDetailModal();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('detail-view').style.display === 'block') {
-                closeDetailModal();
-            }
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document
+            .getElementById("back-button")
+            .addEventListener("click", (e) => {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                closeDetailModal();
+            });
+
+        document
+            .getElementById("detail-view")
+            .addEventListener("click", (e) => {
+                if (e.target.id === "detail-view") {
+                    closeDetailModal();
+                }
+            });
+
+        document.addEventListener("keydown", (e) => {
+            if (
+                e.key === "Escape" &&
+                document.getElementById("detail-view").style.display === "block"
+            ) {
+                closeDetailModal();
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+                const target = document.querySelector(
+                    this.getAttribute("href"),
+                );
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
                     // Cerrar el menú móvil después de hacer clic en un enlace
-                    const navLinks = document.getElementById('nav-links');
-                    const hamburger = document.getElementById('hamburger');
-                    navLinks.classList.remove('active');
-                    hamburger.classList.remove('active');
+                    const navLinks = document.getElementById("nav-links");
+                    const hamburger = document.getElementById("hamburger");
+                    navLinks.classList.remove("active");
+                    hamburger.classList.remove("active");
                 }
             });
         });
 
         // Funcionalidad del menú hamburguesa
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('nav-links');
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("nav-links");
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
         });
 
         // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', (e) => {
+        document.addEventListener("click", (e) => {
             if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
+                navLinks.classList.remove("active");
+                hamburger.classList.remove("active");
             }
         });
 
